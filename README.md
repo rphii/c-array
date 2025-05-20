@@ -9,7 +9,7 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
     vec_resize(vec, length) /* only grow and set length */
     vec_push(vec, item)     /* push one item */
     vec_pop(vec, item)      /* pop one item */
-    vec_at(vec, index)      /* alternative to vec[index]
+    vec_at(vec, index)      /* alternative to vec[index] */
     vec_len(vec)            /* query length */
     vec_cap(vec)            /* query capacity */
     vec_free(vec)           /* free memory */
