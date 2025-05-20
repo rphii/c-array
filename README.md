@@ -66,3 +66,9 @@ I've kept the actual [source](src/vec.c) and [header](src/vec.h) code in the sub
 
 To create the [single-header file](vector.h), use the [python script](gen-single-file.py).
 
+## See also
+
+I took inspiration from the following:
+
+- <https://github.com/Mashpoe/c-vector>
+
