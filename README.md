@@ -12,6 +12,7 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
     vec_at(vec, index)      /* alternative to vec[index] */
     vec_len(vec)            /* query length */
     vec_cap(vec)            /* query capacity */
+    vec_clear(vec)          /* set length to zero, keep memory */
     vec_free(vec)           /* free memory */
 ```
 
