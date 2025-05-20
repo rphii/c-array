@@ -27,6 +27,7 @@
 #define vec_at(vec, index)          *(typeof(vec))_vec_addr(vec VEC_DEBUG_INFO, sizeof(*vec), index)
 #define vec_len(vec)                _vec_len(vec)
 #define vec_cap(vec)                _vec_cap(vec)
+#define vec_clear(vec)              _vec_clear(vec)
 #define vec_free(vec)               _vec_free(&vec)
 
 /*}}}*/
@@ -37,9 +38,10 @@ void _vec_grow(void *vec VEC_DEBUG_DEFS, size_t size, size_t capacity);
 void _vec_resize(void *vec VEC_DEBUG_DEFS, size_t size, size_t length);
 void *_vec_push(void *vec VEC_DEBUG_DEFS, size_t size);
 void *_vec_pop(void *vec VEC_DEBUG_DEFS, size_t size);
-void *_vec_addr(void *vec VEC_DEBUG_DEFS, size_t size, size_t index);
-size_t _vec_len(void *vec);
-size_t _vec_cap(void *vec);
+void *_vec_addr(const void *vec VEC_DEBUG_DEFS, size_t size, size_t index);
+size_t _vec_len(const void *vec);
+size_t _vec_cap(const void *vec);
+void _vec_clear(void *vec);
 void _vec_free(void *vec);
 
 /*}}}*/
@@ -107,7 +109,6 @@ void _vec_grow(void *vec VEC_DEBUG_DEFS, size_t size, size_t capacity) {
     vec_assert_arg(vec);
     void **p = vec;
     *p = _vec_grow2(*p VEC_DEBUG_ARGS, size, capacity);
-    Vec *v = vec_base(*p);
 }
 
 void _vec_resize(void *vec VEC_DEBUG_DEFS, size_t size, size_t length) {
@@ -118,20 +119,19 @@ void _vec_resize(void *vec VEC_DEBUG_DEFS, size_t size, size_t length) {
     v->length = length;
 }
 
-void *_vec_addr(void *vec VEC_DEBUG_DEFS, size_t size, size_t index) {
+void *_vec_addr(const void *vec VEC_DEBUG_DEFS, size_t size, size_t index) {
     vec_assert_arg(vec);
 #if !defined(NDEBUG)
-    Vec *v = vec_base(vec);
+    Vec *v = (void *)vec_base(vec);
     if(!(index < v->length)) {
         vec_error("index %zu is out of bounds %zu", index, v->length);
     }
 #endif
-    return vec + size * index;
+    return (void *)vec + size * index;
 }
 
 void *_vec_push(void *vec VEC_DEBUG_DEFS, size_t size) {
-    void **p = vec;
-    Vec *v = *p ? vec_base(*p) : 0;
+    void **p = vec; Vec *v = *p ? vec_base(*p) : 0;
     *p = _vec_grow2(*p VEC_DEBUG_ARGS, size, v ? v->length + 1 : 1);
     v = vec_base(*p);
     size_t index = v->length++;
@@ -159,16 +159,22 @@ void _vec_free(void *vec) {
     *p = 0;
 }
 
-size_t _vec_len(void *vec) {
+size_t _vec_len(const void *vec) {
     if(!vec) return 0;
-    Vec *v = vec_base(vec);
+    Vec *v = (Vec *)vec_base(vec);
     return v->length;
 }
 
-size_t _vec_cap(void *vec) {
+size_t _vec_cap(const void *vec) {
     if(!vec) return 0;
-    Vec *v = vec_base(vec);
+    Vec *v = (Vec *)vec_base(vec);
     return v->capacity;
+}
+
+void _vec_clear(void *vec) {
+    if(!vec) return;
+    Vec *v = vec_base(vec);
+    v->length = 0;
 }
 
 #endif
