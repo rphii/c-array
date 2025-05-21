@@ -10,6 +10,7 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
     vec_push(vec, item)     /* push one item */
     vec_pop(vec, item)      /* pop one item */
     vec_at(vec, index)      /* alternative to vec[index] */
+    vec_it(vec, index)      /* alternative to &vec[index] */
     vec_len(vec)            /* query length */
     vec_cap(vec)            /* query capacity */
     vec_clear(vec)          /* set length to zero, keep memory */
