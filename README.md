@@ -19,7 +19,7 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
 
 ## Debuggability
 
-All but the query- and freeing functions handle the `DNDEBUG` preprocessor
+All but the query- and freeing functions handle the `NDEBUG` preprocessor
 definition.
 
 If it is not defined, and an error occurs (out of bounds, allocation) a message
@@ -74,6 +74,11 @@ int main(void) {
     return 0;
 }
 ```
+
+Compile with `gcc main.c` to get the full debug-experience, as described above.
+
+Compile with `gcc main.c -DNDEBUG` to generate more performant code.
+
 
 ## Single-Header Generation
 
