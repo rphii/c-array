@@ -17,6 +17,19 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
     vec_free(vec)           /* free memory */
 ```
 
+## Debuggability
+
+All but the query- and freeing functions handle the `DNDEBUG` preprocessor
+definition.
+
+If it is not defined, and an error occurs (out of bounds, allocation) a message
+will be printed describing the error and from where it originated, in the form
+of `file:line-nb:function() vector error: message`.
+
+If it is defined, the error from where it originated is left out in any case.
+Additionally, the out of bounds checking (present in e.g. `vec_at` and
+`vec_it`) will be disabled.
+
 ## Example
 
 As seen in [main.c](examples/main.c):
