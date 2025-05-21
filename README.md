@@ -62,6 +62,11 @@ int main(void) {
         printf("%zu: %u\n", i, vec_at(numbers, i));
     }
 
+    printf("/* access by _it */\n");
+    for(size_t i = 0; i < vec_len(numbers); ++i) {
+        printf("%zu: %p->%u\n", i, vec_it(numbers, i), *vec_it(numbers, i));
+    }
+
     printf("/* access by pop */\n");
     for(size_t i = 0; vec_len(numbers); ++i) {
         printf("%zu: %u\n", i, vec_pop(numbers, i));
