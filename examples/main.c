@@ -38,6 +38,7 @@ int main(void) {
     printf("length %zu\n", vec_len(numbers));
 
     vec_free(numbers); /* free once done */
+    vec_free(origin);
     printf("freed vector, verify null: %p\n", numbers);
 
     return 0;
