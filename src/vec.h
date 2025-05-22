@@ -26,6 +26,7 @@
 
 #define vec_grow(vec, capacity)     _vec_grow(&vec VEC_DEBUG_INFO, sizeof(*vec), capacity)
 #define vec_resize(vec, length)     _vec_resize(&vec VEC_DEBUG_INFO, sizeof(*vec), length)
+#define vec_copy(vec)               _vec_copy(vec VEC_DEBUG_INFO, sizeof(*vec))
 #define vec_push(vec, item)         (*(typeof(vec))_vec_push(&vec VEC_DEBUG_INFO, sizeof(*vec)) = item)
 #define vec_pop(vec, item)          *(typeof(vec))_vec_pop(vec VEC_DEBUG_INFO, sizeof(*vec))
 #define vec_at(vec, index)          *(typeof(vec))_vec_addr(vec VEC_DEBUG_INFO, sizeof(*vec), index)
@@ -41,6 +42,7 @@
 
 void _vec_grow(void *vec VEC_DEBUG_DEFS, size_t size, size_t capacity);
 void _vec_resize(void *vec VEC_DEBUG_DEFS, size_t size, size_t length);
+void *_vec_copy(void *vec VEC_DEBUG_DEFS, size_t size);
 void *_vec_push(void *vec VEC_DEBUG_DEFS, size_t size);
 void *_vec_pop(void *vec VEC_DEBUG_DEFS, size_t size);
 void *_vec_addr(const void *vec VEC_DEBUG_DEFS, size_t size, size_t index);

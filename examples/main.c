@@ -5,11 +5,12 @@
 
 int main(void) {
 
-    int *numbers = 0; /* initialize to 0! */
+    int *origin = 0; /* initialize to 0! */
     printf("push numbers\n");
     for(size_t i = 0; i < 10; ++i) {
-        vec_push(numbers, rand());
+        vec_push(origin, rand());
     }
+    int *numbers = vec_copy(origin);
     printf("length %zu / pointer %p\n", vec_len(numbers), numbers);
 
     vec_resize(numbers, 5);
