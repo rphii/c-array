@@ -65,7 +65,7 @@ static inline void *_vec_grow2(void *vec VEC_DEBUG_DEFS, size_t size, size_t cap
 #define vec_base(vec)   ((vec) - offsetof(Vec, data))
 
 #define vec_error(msg, ...)     do { \
-        printf("\n" VEC_DEBUG_FMT "vector error: " msg "\n" VEC_DEBUG_ARGS, ##__VA_ARGS__); \
+        fprintf(stderr, "\n" VEC_DEBUG_FMT "vector error: " msg "\n" VEC_DEBUG_ARGS, ##__VA_ARGS__); \
         exit(1); \
     } while(0)
 
