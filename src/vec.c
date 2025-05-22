@@ -70,6 +70,15 @@ void _vec_resize(void *vec VEC_DEBUG_DEFS, size_t size, size_t length) {
     v->length = length;
 }
 
+void *_vec_copy(void *vec VEC_DEBUG_DEFS, size_t size) {
+    if(!vec) return 0;
+    void *v = vec_init(VEC_DEBUG_ARG);
+    size_t len = vec_len(vec);
+    _vec_grow(&v VEC_DEBUG_ARGS, size, len);
+    memcpy(v, vec, size * len);
+    return v;
+}
+
 void *_vec_addr(const void *vec VEC_DEBUG_DEFS, size_t size, size_t index) {
     vec_assert_arg(vec);
 #if !defined(NDEBUG)

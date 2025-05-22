@@ -7,6 +7,7 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
 ```c
     vec_grow(vec, capacity) /* only reserve memory */
     vec_resize(vec, length) /* only grow and set length */
+    vec_copy(vec)           /* copies vector */
     vec_push(vec, item)     /* push one item */
     vec_pop(vec, item)      /* pop one item */
     vec_at(vec, index)      /* alternative to vec[index] */
@@ -16,6 +17,16 @@ Very simple C vector [single file](vector.h) implementation, works for any type.
     vec_clear(vec)          /* set length to zero, keep memory */
     vec_free(vec)           /* free memory */
 ```
+
+## Error Handling
+
+There is no error handling, BUT a sophisticated amount of errors can happen:
+
+- Different kinds of memory allocation / reallocation
+- Out of bounds access
+
+If any error occurs, it is one that should never even happen in the first
+place, hence I just `exit(1)`. For that, see (Debuggability)[#Debuggability].
 
 ## Debuggability
 
@@ -42,11 +53,12 @@ As seen in [main.c](examples/main.c):
 
 int main(void) {
 
-    int *numbers = 0; /* initialize to 0! */
+    int *origin = 0; /* initialize to 0! */
     printf("push numbers\n");
     for(size_t i = 0; i < 10; ++i) {
-        vec_push(numbers, rand());
+        vec_push(origin, rand());
     }
+    int *numbers = vec_copy(origin);
     printf("length %zu / pointer %p\n", vec_len(numbers), numbers);
 
     vec_resize(numbers, 5);
@@ -75,8 +87,6 @@ int main(void) {
 
     vec_free(numbers); /* free once done */
     printf("freed vector, verify null: %p\n", numbers);
-
-    return 0;
 }
 ```
 
