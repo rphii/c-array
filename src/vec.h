@@ -6,13 +6,17 @@
 
 #if defined(NDEBUG)
 #define VEC_DEBUG_INFO
+#define VEC_DEBUG_ARG
 #define VEC_DEBUG_ARGS
+#define VEC_DEBUG_DEF
 #define VEC_DEBUG_DEFS
 #define VEC_DEBUG_FMT
 #else
 #define VEC_DEBUG_INFO  , __FILE__, __LINE__, __func__
-#define VEC_DEBUG_ARGS  , file, line, func
-#define VEC_DEBUG_DEFS  , const char *file, const int line, const char *func
+#define VEC_DEBUG_ARG   file, line, func
+#define VEC_DEBUG_ARGS  , VEC_DEBUG_ARG
+#define VEC_DEBUG_DEF   const char *file, const int line, const char *func
+#define VEC_DEBUG_DEFS  , VEC_DEBUG_DEF
 #define VEC_DEBUG_FMT   "%s:%u:%s() "
 #endif
 

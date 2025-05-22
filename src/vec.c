@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-static inline void *vec_init(void);
+static inline void *vec_init(VEC_DEBUG_DEF);
 static inline void *_vec_grow2(void *vec VEC_DEBUG_DEFS, size_t size, size_t capacity);
 
 #define vec_assert_arg(arg)     assert(arg && "null pointer argument!");
@@ -22,15 +22,18 @@ typedef struct Vec {
     void *data;
 } Vec;
 
-static inline void *vec_init(void) {
+static inline void *vec_init(VEC_DEBUG_DEF) {
     Vec *v = malloc(sizeof(Vec));
+    if(!v) {
+        vec_error("failed creating vector");
+    }
     memset(v, 0, sizeof(*v));
     return &v->data;
 }
 
 static inline void *_vec_grow2(void *vec VEC_DEBUG_DEFS, size_t size, size_t capacity) {
     if(!vec) {
-        vec = vec_init();
+        vec = vec_init(VEC_DEBUG_ARG);
     }
     Vec *v = vec_base(vec);
     if(capacity <= v->capacity) return vec;
