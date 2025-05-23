@@ -1,6 +1,6 @@
 # c-array
 
-Very simple C array / array [single file](array.h) implementation, works for any type.
+Very simple C array / vector [single file](array.h) implementation, works for any type.
 
 ## Functions
 
