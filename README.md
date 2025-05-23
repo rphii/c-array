@@ -26,7 +26,7 @@ There is no error handling, BUT a sophisticated amount of errors can happen:
 - Out of bounds access
 
 If any error occurs, it is one that should never even happen in the first
-place, hence I just `exit(1)`. For that, see (Debuggability)[#Debuggability].
+place, hence I just `exit(1)`. For that, see [Debuggability](#Debuggability).
 
 ## Debuggability
 
